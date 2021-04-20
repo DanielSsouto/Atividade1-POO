@@ -43,10 +43,10 @@ public class Main {
             
             switch(menu){
                     case 1:
-                        System.out.println("\n Digite o valor a ser somado no coeficiente \n");
-                        aux = ler.nextFloat();
                         System.out.println("\n Digite o grau do coeficiente \n");
                         grau = ler.nextInt();
+                        System.out.println("\n Digite o valor a ser somado no coeficiente \n");
+                        aux = ler.nextFloat();
                         polinom.Add(grau, aux);
                         polinom.Mostra();
                         break;

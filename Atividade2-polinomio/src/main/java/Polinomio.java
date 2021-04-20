@@ -52,11 +52,12 @@ public class Polinomio {
     public void Calcula(float valor_){
         
         float resultado=0;
-        System.out.print("P("+String.valueOf(valor_)+")=");
+        
         
         for(int i=0; i<=grau; i++){
-            resultado+=Math.pow(i, valor_)*poli.get(i).coeficiente;
+            resultado+=Math.pow(valor_,i)*poli.get(i).coeficiente;
             }
+        System.out.print("P("+String.valueOf(valor_)+")=");
         System.out.print(String.valueOf(resultado));
         }
 }
