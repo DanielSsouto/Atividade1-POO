@@ -10,12 +10,44 @@ package br.usp.gabriel.exercicio2;
  * @author gabriel
  */
 public class DriverDeRede extends DriverGenerico {
-    //enviaPacoteDeDados
+    private boolean ligado;
+    
     DriverDeRede(){
-        super();
+        ligado = false;
+    }
+    
+    public void ligaDispositivo(){
+        if(ligado) 
+            ligado = false;
+        else 
+            ligado = true;
+    }
+     
+    public boolean verificaStatus(){
+        if(ligado)
+            System.out.println("O driver de rede esta ligado \n");
+        else
+            System.out.println("O driver de rede nao esta ligado \n");
+        
+        return ligado;
     }
     
     public void enviaPacoteDeDados(){
-        //Nao entendi o que esse metodo deveria fazer
+       if (ligado)
+           System.out.println("Enviando seu pacote... Pacote enviado! \n");
+       else 
+           System.out.println("Driver desligado \n");
+    }
+    
+    public void executaTeste(){
+        if(verificaStatus())
+            enviaPacoteDeDados();
+        else{
+            System.out.println("Ligando Driver...\n");
+            ligaDispositivo();
+            enviaPacoteDeDados();
+            System.out.println("Desligando Driver...\n");
+            ligaDispositivo();
+        }
     }
 }
