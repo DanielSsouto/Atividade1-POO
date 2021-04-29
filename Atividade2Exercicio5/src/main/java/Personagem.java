@@ -31,7 +31,7 @@ public class Personagem {
             System.out.println("Este personagem possui os poderes:");
             for(int i = 0; i <= Poderes.size(); i++){
                 System.out.println("Poder" + (i+1) +
-                                   "\nIntensidade:"+Poderes.get(i).mostraForca() +
+                                   "\nCategoria:"+Poderes.get(i).mostraCategoria() +
                                    "\nNome: "+Poderes.get(i).mostraNome());
             }
             
@@ -51,7 +51,7 @@ public class Personagem {
     }
     
     // Saberemos que o objeto nao foi encontrado, se aux.Intensidade for nulo
-    public Superpoder achaPoder(String Nome){ 
+    private Superpoder achaPoder(String Nome){ 
         int i = 0;
         Superpoder aux = new Superpoder(0,"");
         
@@ -63,35 +63,39 @@ public class Personagem {
         else
             return aux;
     }
-    
+    private void receberAtaque(float ataque){
+        if (Vida != 0)
+            Vida -= ataque;
+        return;
+    }
     //Intensidade deve ser passada como um numero de 0 a 1
     public void atacar(float intensidade, String Golpe, Personagem Inimigo){
         if(Inimigo.mostraVida() != 0){
-            double aux1 = Math.random();
-            if( 0.5 < aux1 && 0 < intensidade && intensidade < 1){ //Se o personagem assertar o golpe, descontamos vida do inimigo
-                //System.out.println("Chegeui aqui (1)");
-                float aux = intensidade * achaPoder(Golpe).mostraForca();
-                //System.out.println("Chegeui aqui (2)");
+            
+            if( (double) (0.5) < Math.random() && 0 < intensidade && intensidade < 1){ //Se o personagem assertar o golpe, descontamos vida do inimigo
+                
+                float aux = achaPoder(Golpe).mostraCategoria();
+                
                 if(aux != 0){ //Se achamos o Superpoder, realizamos o ataque
-                    if (Inimigo.mostraVida() < aux){
+                    if (Inimigo.mostraVida() < intensidade*100){
                         Vida = 0;
                         System.out.println(Inimigo.mostraNome()+" foi derrotado por "+ Nome);
                         return;
                 
                     } else{
-                        Vida = Vida - aux;
-                        System.out.println(Nome+" tirou "+aux+" pontos de vida de "+Inimigo.mostraNome()+"\n");
-                        System.out.println(Inimigo.mostraNome()+" agora tem "+Inimigo.mostraVida()+" pontos de vida");
+                        Inimigo.receberAtaque(intensidade*100);
+                        System.out.println(Nome+" tirou "+intensidade*100 +" pontos de vida de "+Inimigo.mostraNome()+"\n");
+                        System.out.println(Inimigo.mostraNome()+" agora tem "+Inimigo.mostraVida()+" pontos de vida\n");
                         return;
                     }
                 } else{
                     System.out.println("Esse poder nao foi cadastrado, ou foi escrito de maneira diferente\n"
-                                        + "Confira todos os poderes do seu personagem com o metodo mostraTodosPoderes");
+                                        + "Confira todos os poderes do seu personagem com o metodo mostraTodosPoderes\n");
                     return;
                 } 
             
             }else{
-                System.out.println("O golpe falhou miseravelmente!!!"+aux1);
+                System.out.println("O golpe falhou miseravelmente!!!(Ou voce foi safadinho e tentou passar um valor maior do que 1 para a intensidade)\n");
                 return;
             }
         }

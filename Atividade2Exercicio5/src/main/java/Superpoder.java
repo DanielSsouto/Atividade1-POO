@@ -1,18 +1,20 @@
 
 public class Superpoder {
-    private int Intensidade;
+    private int Categoria;
     private String Nome;
     
-    Superpoder(int NovaIntensidade, String NovoNome){
+    Superpoder(int NovaCategoria, String NovoNome){
         Nome = NovoNome;
-        if(NovaIntensidade == 0)
-            Intensidade = NovaIntensidade+1;
+        if (NovaCategoria == 0)
+            Categoria = 1;
+        else
+            Categoria = NovaCategoria;
         
         return;
     }
     
-    public int mostraForca(){
-        return Intensidade;
+    public int mostraCategoria(){
+        return Categoria;
     }
     
     public String mostraNome(){
