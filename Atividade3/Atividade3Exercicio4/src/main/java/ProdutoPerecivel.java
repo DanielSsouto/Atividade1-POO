@@ -6,10 +6,14 @@ public class ProdutoPerecivel extends Produto {
     ProdutoPerecivel(int NovoCodigo, float NovoPreco, String NovaDescricao, int NovaQuantidade, Date NovaData){
         super(NovoCodigo, NovoPreco, NovaDescricao, NovaQuantidade);
         DataDeValidade = NovaData;
+        
+        return;
     }
     
     void mostraDataDeValidade(){
         System.out.println("Data de Validade: "+DataDeValidade+"\n");
+        
+        return;
     }
     
     void retirarDoEstoque(int Quantidade, Date DataAtual){

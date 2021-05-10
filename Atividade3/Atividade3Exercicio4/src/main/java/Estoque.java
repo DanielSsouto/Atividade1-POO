@@ -9,6 +9,8 @@ public class Estoque {
     Estoque(){
         ProdutosEmEstoque = new ArrayList<Produto>();
         NumeroDeProdutos = 0;
+        
+        return;
     }
     
     Produto consultarProduto(int UmCodigo){
@@ -60,7 +62,10 @@ public class Estoque {
             soma += ProdutosEmEstoque.get(i).PrecoUnitario * ProdutosEmEstoque.get(i).QuantidadeEmEstoque;
             i++;
         }
+        
         System.out.println("O valor total das mercadorias em estoque eh: "+soma+"\n");
+        
+        return;
     }
     
     void mostraEstoque(){

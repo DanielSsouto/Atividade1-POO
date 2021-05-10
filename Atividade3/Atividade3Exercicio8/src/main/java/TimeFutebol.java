@@ -1,5 +1,6 @@
 
 public class TimeFutebol implements Comparable<TimeFutebol> {
+    String nome;
     int vitorias;
     int derrotas;
     int empates;
@@ -8,7 +9,7 @@ public class TimeFutebol implements Comparable<TimeFutebol> {
     int cartoesAmarelos;
     int cartoesVermelhos;
     
-    TimeFutebol(int numVitorias, int numDerrotas, int numEmpates, int numGols, int numGolsSofridos, int numAmarelos, int numVermelhos){
+    TimeFutebol(String novoNome, int numVitorias, int numDerrotas, int numEmpates, int numGols, int numGolsSofridos, int numAmarelos, int numVermelhos){
         vitorias = numVitorias;
         derrotas = numDerrotas;
         empates = numEmpates;
@@ -16,12 +17,17 @@ public class TimeFutebol implements Comparable<TimeFutebol> {
         golsSofridos = numGolsSofridos;
         cartoesAmarelos = numAmarelos;
         cartoesVermelhos = numVermelhos;
+        nome = novoNome;
         
         return;
     }
     
     public int mostraPontuacao(){
         return 3*vitorias + empates;
+    }
+    
+    public String mostraNome(){
+        return nome;
     }
     
     public int compareTo(TimeFutebol time){

@@ -11,10 +11,12 @@ public class ProdutoPerecivelEspecial extends ProdutoPerecivel{
     }
     
     void mostraNotaDeControle(){
-        System.out.println("Nota de Controle:\n");
+        System.out.println("Nota de Controle:");
         mostraDescricao();
         mostraDataDeValidade();
         System.out.println("Codigo: "+Codigo);
+        
+        return;
     }
    
 }

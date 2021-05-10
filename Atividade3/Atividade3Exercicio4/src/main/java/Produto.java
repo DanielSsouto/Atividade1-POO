@@ -16,14 +16,20 @@ public class Produto {
     
     void mudaPreco(float NovoPreco){
         PrecoUnitario = NovoPreco;
+        
+        return;
     }
     
     void mudaDescricao(String NovaDescricao){
         Descricao = NovaDescricao;
+        
+        return;
     }
     
     void mostraPreco(){
         System.out.println("Preco unitario "+PrecoUnitario+"\n");
+        
+        return;
     }
     
     void mostraDescricao(){
@@ -31,10 +37,14 @@ public class Produto {
                             "\nDescricao: "+Descricao+
                             "\nQuantidade em estoque: "+QuantidadeEmEstoque+
                             "\nPreco unitario: "+PrecoUnitario+"\n");
+        
+        return;
     }
     
     void guardarNoEstoque(int Quantidade){
         QuantidadeEmEstoque += Quantidade;
+        
+        return;
     }
     
     int retirarDoEstoque(int Quantidade){
