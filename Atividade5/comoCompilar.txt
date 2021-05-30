@@ -1,0 +1,4 @@
+- Os arquivos .cpp devem ser compilados da maneira usual:
+  g++ -o [nome do executável] [nome do arquivo].cpp
+- A execucao tambem deve ser feita da maneira usual
+  ./[nome do executavel]
