@@ -15,6 +15,7 @@ public class ControleDeJogo {
             e.get(i).autoDesenho();
         }
     }
+    
     public void processaTudo(ArrayList<Elemento> e){
         Galinha hHero = (Galinha)e.get(0); /*O heroi (protagonista) eh sempre o primeiro do array*/
         Elemento eTemp;
@@ -23,9 +24,10 @@ public class ControleDeJogo {
             eTemp = e.get(i); /*Pega o i-esimo elemento do jogo*/
             /*Verifica se o heroi se sobrepoe ao i-ésimo elemento*/
             if(hHero.getPosicao().estaNaMesmaPosicao(eTemp.getPosicao()))
-                hHero.setPosicao(14,1);
+                hHero.setPosicao(11,4);
         }        
     }
+    
     public boolean ehPosicaoValida(ArrayList<Elemento> e, Posicao p){
         Elemento eTemp;
         /*Validacao da posicao de todos os elementos com relacao a Posicao p*/

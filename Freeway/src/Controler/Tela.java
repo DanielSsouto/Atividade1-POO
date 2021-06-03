@@ -15,7 +15,7 @@ import java.util.zip.*;
 public class Tela extends javax.swing.JFrame implements MouseListener, KeyListener {
 
     private Galinha hHero;
-    private Carro CarroAzul;
+    private Carro CarroAzul, CarroAmarelo, CarroVerdeClaro, CarroLaranja;
     private ArrayList<Elemento> eElementos;
     private ControleDeJogo cControle = new ControleDeJogo();
     private Graphics g2;
@@ -29,7 +29,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.addMouseListener(this); /*mouse*/
         this.addKeyListener(this);   /*teclado*/
         /*Cria a janela do tamanho do cenario + insets (bordas) da janela*/
-        this.setSize(Consts.RES * Consts.CELL_SIDE + getInsets().left + getInsets().right,
+        this.setSize(2*Consts.RES * Consts.CELL_SIDE + getInsets().left + getInsets().right,
                 Consts.RES * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
 
         /*Este array vai guardar os elementos graficos*/
@@ -41,9 +41,17 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         hHero.setPosicao(14, 1);
         this.addElemento(hHero);
         
-        CarroAzul = new Carro("carro_azul.png", true);
-        CarroAzul.setPosicao(10, 10);
+        CarroAzul = new Carro("carro_azul.png", true, "azul");
+        CarroAzul.setPosicao(10, 185);
         this.addElemento(CarroAzul);
+        
+        CarroAmarelo = new Carro("carro_amarelo.png", true, "amarelo");
+        CarroAmarelo.setPosicao(9, 185);
+        this.addElemento(CarroAmarelo);
+        
+        CarroLaranja = new Carro("carro_laranja.png", true, "laranja");
+        CarroLaranja.setPosicao(1, 185);
+        this.addElemento(CarroLaranja);
     }
 
 /*--------------------------------------------------*/
@@ -66,10 +74,10 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         g2 = g.create(getInsets().left, getInsets().top, getWidth() - getInsets().right, getHeight() - getInsets().top);
         /*Desenha cenário*/
         for (int i = 0; i < Consts.RES; i++) {
-            for (int j = 0; j < Consts.RES; j++) {
+            for (int j = 0; j < 2*Consts.RES; j++) {
                 try {
                     //Linha para alterar o background
-                    int k = Consts.RES/2;
+                    int k = Consts.RES/2 - 1;
                     if(i == k){
                         Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "asfalto2.png");
                         g2.drawImage(newImage,j*Consts.CELL_SIDE, i*Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
@@ -119,18 +127,25 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             hHero.moveRight();
         } else if (e.getKeyCode() == KeyEvent.VK_R) {
-            this.eElementos.clear();
-            hHero = new Galinha("vacina.png"); /* https://www.online-image-editor.com/ */
-            hHero.setPosicao(0, 7);
+            hHero = new Galinha("galinha.png"); /* https://www.online-image-editor.com/ */
+            hHero.setPosicao(14, 1);
             this.addElemento(hHero);
 
-            CoronaVirus cTeste = new CoronaVirus("carro_azul.png");
-            cTeste.setPosicao(5, 5);
-            this.addElemento(cTeste);
+            CarroAzul = new Carro("carro_azul.png", true, "azul");
+            CarroAzul.setPosicao(10, 185);
+            this.addElemento(CarroAzul);
+
+            CarroAmarelo = new Carro("carro_amarelo.png", true, "amarelo");
+            CarroAmarelo.setPosicao(9, 185);
+            this.addElemento(CarroAmarelo);
+
+            CarroLaranja = new Carro("carro_laranja.png", true, "laranja");
+            CarroLaranja.setPosicao(1, 185);
+            this.addElemento(CarroLaranja);
         }
         
         
-        /*Se o heroi for para uma posicao invalida, sobre um elemento intransponivel, volta para onde estava*/
+        /*Se o heroi for para uma posicao invalida, sorbre um elemento intransponivel, volta para onde estava*/
         if (!cControle.ehPosicaoValida(this.eElementos,hHero.getPosicao())) {
             hHero.voltaAUltimaPosicao();
         }

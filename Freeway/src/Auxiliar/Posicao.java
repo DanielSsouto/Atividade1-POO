@@ -19,7 +19,7 @@ public class Posicao implements Serializable{
         linhaAnterior = this.linha;
         this.linha = linha;
         
-        if(coluna < 0 || coluna >= Auxiliar.Consts.RES)
+        if(coluna < 0 || coluna >= 16*Auxiliar.Consts.RES) // sao 2*Res celulas, e cada celula eh dividida em 8
             return false;
         colunaAnterior = this.coluna;
         this.coluna = coluna;
@@ -39,7 +39,7 @@ public class Posicao implements Serializable{
     }
 
     public boolean estaNaMesmaPosicao(Posicao posicao){
-        return (linha == posicao.getLinha() && coluna == posicao.getColuna());
+        return (Math.abs(linha - posicao.getLinha()) == 0 && Math.abs(coluna-posicao.getColuna()) <= 8);
     }
 
     public boolean copia(Posicao posicao){
