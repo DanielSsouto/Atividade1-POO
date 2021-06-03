@@ -41,18 +41,22 @@ class complexo{
 
 int main (){
     vector<complexo> Complexos; // os numeros que iremos gerar
-    complexo soma(-10, -10); // a soma total dos elementos de Complexos
+    complexo soma(0, 0); // a soma total dos elementos de Complexos
+    vector<complexo>::iterator z;
     int n;
 
     cout << "Digite a quantidades de numeros que devemos gerar: ";
     cin >> n;
+
+    //preenche o veotr, usando  algarismos de 0 a 99 para facilitar a vizualização
+    for(int i = 0; i<= n-1; i++){
+        Complexos.push_back(complexo(rand() % 100, rand() % 100)); // insere um complexo aleatorio no vector
+	Complexos[i].mostraNumero();
+    }
     
-    // insere um complexo aleatorio no vector, e o acrescenta a soma
-    for(int i = 0; i <= n - 1; i++){
-        //inteiros de 0 a 99 para facilitar a visaulzacao
-        Complexos.push_back(complexo(rand() % 100, rand() % 100)); 
-        soma = soma + Complexos[i];
-        Complexos[i].mostraNumero();
+    // faz a soma
+    for(z = Complexos.begin(); z != Complexos.end(); z++){
+        soma = soma + *z;
     }
 
     cout << "Soma resultante: ";

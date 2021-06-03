@@ -32,7 +32,7 @@ class complexo{
             if (img < 0)
                 cout << re << " - i" << img << "\n";
             else
-                cout << re << " + i" << img << "\n";
+                cout << re << " + i" << -img << "\n";
         }
 };
 
@@ -43,7 +43,8 @@ int main(){
     (z+w).mostraNumero();
     (z-w).mostraNumero();
     (z*w).mostraNumero();
-    cout << "Modulo:" << z.modulo();
+    w.mostraNumero();
+    cout << "Modulo:" << z.modulo() << "\n";
 
     return 0;
 }
