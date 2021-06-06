@@ -2,7 +2,6 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 
 public class EditorDeArquivos {
@@ -37,9 +36,11 @@ public class EditorDeArquivos {
     
     public void ordenaArquivosPorTamanho(){   
         Collections.sort(arquivos, new ComparaArquivosPorTamanho());
+        
+        return;
     }
     
-    public void removeCaracter(char c){ // c deve ser uma string de apenas um caracter
+    public void removeCaracter(char c){
         String nomeSemExtensao = "";
         String novoNome = "";
         int i = 0;
@@ -80,6 +81,7 @@ public class EditorDeArquivos {
                 
             } catch(NullPointerException e){
                 System.out.println("NULL Nao foi possivel renomear o arquivo: "+ arquivos.get(i).getName());
+            
             } catch(SecurityException e){
                 System.out.println("SECURITY Nao foi possivel renomear o arquivo: "+ arquivos.get(i).getName());
             } 
@@ -92,7 +94,7 @@ public class EditorDeArquivos {
         int ordem = 1;
         String zeros = "000";
         
-        this.ordenaArquivosPorTamanho(); // garante que a numeracao serah do maior para o menor
+        this.ordenaArquivosPorTamanho(); // garante que a numeracao eh coerente com a ordenacao
         
         for(int i = 0; i < arquivos.size(); i++) 
             try{
