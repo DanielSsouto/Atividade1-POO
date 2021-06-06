@@ -6,9 +6,9 @@ import java.util.Comparator;
 
 
 public class EditorDeArquivos {
-    File diretorio;
-    String extensao; // so iremos considerar os arquivos dessa extensao no diretorio
-    ArrayList<File> arquivos;
+    private File diretorio;
+    private String extensao; // so iremos considerar os arquivos dessa extensao no diretorio
+    private ArrayList<File> arquivos;
     
     EditorDeArquivos(String novoDiretorio, String novaExtensao){
         diretorio = new File(novoDiretorio);

@@ -6,7 +6,6 @@ public class teste {
 
     public static void main(String[] args) {
         EditorDeArquivos diretorio = new EditorDeArquivos("./src/main/java", ".mp3");
-        boolean aux = true;
         
         diretorio.mostraArquivos();
         diretorio.ordenaArquivosPorTamanho();
