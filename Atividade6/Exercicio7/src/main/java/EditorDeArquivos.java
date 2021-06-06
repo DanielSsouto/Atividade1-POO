@@ -44,7 +44,6 @@ public class EditorDeArquivos {
         String novoNome = "";
         int i = 0;
         int j = 0;
-        File novo;
         
         for(i = 0; i< arquivos.size(); i++) 
             try{
@@ -102,6 +101,7 @@ public class EditorDeArquivos {
                     ordem++;
                     zeros = zeros.substring(0, zeros.length() - 1);
                 }
+                
                 System.out.println(arquivos.get(i).getName());
                 System.out.println(zeros+Integer.toString(i+1)+arquivos.get(i).getName());
                 
