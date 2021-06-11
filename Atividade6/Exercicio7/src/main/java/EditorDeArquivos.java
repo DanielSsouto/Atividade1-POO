@@ -77,7 +77,7 @@ public class EditorDeArquivos {
         String nomeSemExtensao;
         File aux;
         
-        for(String arquivo: diretorio.list()) 
+        for(String arquivo : diretorio.list()) 
             if(verificaExtensao(arquivo))
                 try{
                     nomeSemExtensao = arquivo.replace(extensao, "");
@@ -98,13 +98,11 @@ public class EditorDeArquivos {
         String arquivo;
         String zeros = "000";
         File aux;
-        ArrayList<File> ordenado = new ArrayList();
-        ordenado = ordenaArquivosPorTamanho(); // garante que a numeracao eh coerente com a ordenacao
+        ArrayList<File> ordenado = ordenaArquivosPorTamanho(); // numeracao eh coerente com a ordenacao
         int i, ordem;
         
         for(i = 0; i <= ordenado.size() - 1; i++) {
             arquivo = ordenado.get(i).getName();
-            System.out.println(arquivo);
             if(verificaExtensao(arquivo))
                 try{
                     //determina quantas casas nao nulas a numeracao do arquivo atual deve ter
