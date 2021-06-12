@@ -13,8 +13,8 @@ import Auxiliar.Posicao;
  */
 public class Carro extends Elemento implements Serializable{
     private String cor; 
-    int velocidade_anterior;
-    int aceleracao_anterior;
+    float velocidade_anterior;
+    float aceleracao_anterior;
     
     public Carro(String sNomeImagePNG, boolean mortal, String umaCor, int linha, int coluna) {
         super(sNomeImagePNG, linha, coluna);
@@ -30,14 +30,14 @@ public class Carro extends Elemento implements Serializable{
         switch(cor){
                 case "azul": // velocidade constante
                     c = this.pPosicao.setPosicao(this.pPosicao.getLinha(), 
-                                                this.pPosicao.getColuna() - velocidade_anterior);
+                                                this.pPosicao.getColuna() - (int) velocidade_anterior);
                     break;
                 case "amarelo": // aceleracao constante
                     c = this.pPosicao.setPosicao(this.pPosicao.getLinha(), 
-                                                this.pPosicao.getColuna() - velocidade_anterior);
+                                                this.pPosicao.getColuna() - (int) velocidade_anterior);
                     if(velocidade_anterior <= 8)
                         velocidade_anterior = velocidade_anterior + aceleracao_anterior;
-                    aceleracao_anterior = 1;
+                    aceleracao_anterior = (float) 0.5;
                     break;
                 case "vermelho_claro":
                     this.setPosicao(10, 10);
@@ -57,12 +57,12 @@ public class Carro extends Elemento implements Serializable{
                 case "rosa":
                     this.setPosicao(10, 10);
                     break;
-                case "laranja":
+                case "laranja": // aceleracao senoidal
                     c = this.pPosicao.setPosicao(this.pPosicao.getLinha(), 
-                                                this.pPosicao.getColuna() - velocidade_anterior);
+                                                this.pPosicao.getColuna() - (int) velocidade_anterior);
                     if (velocidade_anterior <= 8 || aceleracao_anterior <= 0)
                         velocidade_anterior += aceleracao_anterior;
-                    aceleracao_anterior = (int) (1.2*Math.sin(Math.toRadians((191 - this.pPosicao.getColuna())*360/191)));
+                    aceleracao_anterior = (float) (1.5*Math.sin(Math.toRadians((191 - this.pPosicao.getColuna())*360/191)));
                     break;
         }
         return c;
