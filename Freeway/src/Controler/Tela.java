@@ -2,6 +2,7 @@ package Controler;
 
 import Modelo.*;
 import Auxiliar.*;
+import static Auxiliar.Consts.TOTAL_DE_FASES;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -94,10 +95,14 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             }
         } 
         
-        /*Aqui podem ser inseridos novos processamentos de controle*/
         if (!faseAtual.eElementos.isEmpty()) {
             this.cControle.desenhaTudo(faseAtual.eElementos);
-            this.cControle.processaTudo(faseAtual.eElementos);
+            if(this.cControle.processaTudo(faseAtual.eElementos))
+                faseAtual.incrementaFase();
+            
+            if(faseAtual.mostraFase() == TOTAL_DE_FASES){
+                //restart
+            }
         }
 
         g.dispose();
@@ -125,11 +130,11 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             faseAtual.hHero.moveUp();
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             faseAtual.hHero.moveDown();
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        }/*else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             faseAtual.hHero.moveLeft();
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             faseAtual.hHero.moveRight();
-        } else if (e.getKeyCode() == KeyEvent.VK_R) {
+        }*/ else if (e.getKeyCode() == KeyEvent.VK_R) {
             faseAtual = new Fase(faseAtual.mostraDificuldade());
             /*
             hHero = new Galinha("galinha.png", 14, 1); /* https://www.online-image-editor.com/ 

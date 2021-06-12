@@ -1,5 +1,6 @@
 package Controler;
 
+import static Auxiliar.Consts.TOTAL_DE_FASES;
 import Modelo.Elemento;
 import Modelo.Galinha;
 import Auxiliar.Posicao;
@@ -16,7 +17,7 @@ public class ControleDeJogo {
         }
     }
     
-    public void processaTudo(ArrayList<Elemento> e){
+    public boolean processaTudo(ArrayList<Elemento> e){
         Galinha hHero = (Galinha)e.get(0); /*O heroi (protagonista) eh sempre o primeiro do array*/
         Elemento eTemp;
         /*Processa todos os demais em relacao ao heroi*/
@@ -24,10 +25,15 @@ public class ControleDeJogo {
             eTemp = e.get(i); /*Pega o i-esimo elemento do jogo*/
             /*Verifica se o heroi se sobrepoe ao i-ésimo elemento*/
             if(hHero.getPosicao().estaNaMesmaPosicao(eTemp.getPosicao()))
-                if(hHero.decrementaVida()){
+                if(hHero.decrementaVida()){ // se o heroi morreu
                     // restart
                 }
-        }        
+        }
+        
+        if(hHero.getPosicao().estaNaMesmaPosicao(new Posicao(11,32)))
+            return true;
+        else
+            return false;
     }
     
     public boolean ehPosicaoValida(ArrayList<Elemento> e, Posicao p){
@@ -39,6 +45,7 @@ public class ControleDeJogo {
                 if(eTemp.getPosicao().estaNaMesmaPosicao(p))
                     return false; /*A posicao p é invalida, pois ha um elemento (i-esimo eTemp) intransponivel lá*/
         }
+        
         return true;
     }
 }

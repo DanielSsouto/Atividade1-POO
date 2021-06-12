@@ -23,9 +23,10 @@ public class Galinha extends Elemento implements Serializable{
     }
     
     public boolean decrementaVida(){
-        if(vida == 0)
+        if(vida == 0){
+            setPosicao(pInicial.getLinha(), pInicial.getColuna());
             return false;
-        else
+        }else
             vida--;
         
         setPosicao(pInicial.getLinha(), pInicial.getColuna());

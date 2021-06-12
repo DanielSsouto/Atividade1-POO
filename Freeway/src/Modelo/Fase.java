@@ -7,17 +7,27 @@ public class Fase {
     private int faseAtual;
     private int dificuldade;
     public Galinha hHero;
-    private Carro CarroAzul, CarroAmarelo, CarroVerdeClaro, CarroLaranja;
-    public ArrayList<Elemento> eElementos;
+    public ArrayList<Elemento> eElementos = null;
     
     private void declaraElementos(){
+        if(eElementos != null)
+            eElementos.clear();
+        
         eElementos = new ArrayList(100);
-        hHero = new Galinha("galinha.png", 14, 1); /* https://www.online-image-editor.com/ */
-        //hHero.setPosicao(14, 1);
+        hHero = new Galinha("galinha.png", 0, 32); 
         eElementos.add(hHero);
         
         if (dificuldade == 0){ // 3 tipos de carros apenas
-           
+            eElementos.add(new Carro("carro_amarelo.png", true, "amarelo", 10, 185, 0 + (int)(faseAtual/10)));
+            eElementos.add(new Carro("carro_laranja.png", true, "laranja", 9, 185, 2 + (int)(faseAtual/10)));
+            eElementos.add(new Carro("carro_azul.png", true, "azul", 8, 185, 4 + (int)(faseAtual/10)));
+            eElementos.add(new Carro("carro_amarelo.png", true, "amarelo", 7, 185, 2 + (int)(faseAtual/10)));
+            eElementos.add(new Carro("carro_laranja.png", true, "laranja", 6, 185, 0 + (int)(faseAtual/10)));
+            eElementos.add(new Carro("carro_azul.png", true, "azul", 5, 185, 4 + (int)(faseAtual/10)));
+            eElementos.add(new Carro("carro_amarelo.png", true, "amarelo", 4, 185, 0 + (int)(faseAtual/10)));
+            eElementos.add(new Carro("carro_laranja.png", true, "laranja", 3, 185, 2 + (int)(faseAtual/10)));
+            eElementos.add(new Carro("carro_azul.png", true, "azul", 2, 185, 4 + (int)(faseAtual/10)));
+            eElementos.add(new Carro("carro_azul.png", true, "azul", 1, 185, 0 + (int)(faseAtual/10)));
         } else if(dificuldade == 1){ // 5 tipos de carros
         
         
@@ -26,22 +36,22 @@ public class Fase {
         
         }
         
-        CarroAmarelo = new Carro("carro_amarelo.png", true, "amarelo", 9, 185);
-        eElementos.add(CarroAmarelo);
-        CarroLaranja = new Carro("carro_laranja.png", true, "laranja", 1, 185);
-        eElementos.add(CarroLaranja);
-        CarroAzul = new Carro("carro_azul.png", true, "azul", 10, 185);
-        //CarroAzul.setPosicao(10, 185);
-        eElementos.add(CarroAzul);
-        
         return;
     }
     
     public Fase(int dif){
         dificuldade = dif;
+        faseAtual = 0;
         declaraElementos();
     
     }
+    
+    public void incrementaFase(){
+        faseAtual++;
+        declaraElementos();
+        
+        return;
+    } 
     
     public int mostraDificuldade(){
         return dificuldade;
@@ -50,4 +60,4 @@ public class Fase {
     public int mostraFase(){
         return faseAtual;
     }
-}
+}(faseAtual%10)
