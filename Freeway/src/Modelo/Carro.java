@@ -16,8 +16,8 @@ public class Carro extends Elemento implements Serializable{
     int velocidade_anterior;
     int aceleracao_anterior;
     
-    public Carro(String sNomeImagePNG, boolean mortal, String umaCor) {
-        super(sNomeImagePNG);
+    public Carro(String sNomeImagePNG, boolean mortal, String umaCor, int linha, int coluna) {
+        super(sNomeImagePNG, linha, coluna);
         cor = umaCor;
         velocidade_anterior = 1; //menor velocidade possivel
         aceleracao_anterior = 0; // menor aceleracao possivel
@@ -73,41 +73,43 @@ public class Carro extends Elemento implements Serializable{
         boolean soma_volta = false;
         
         /*Movo a direita, quando nao poder se mover ainda mais para a direita, pede para ser removido do jogo*/
-        if(!this.moveLeft())
+        if(!this.moveLeft()){
+            /*
             switch (cor){
                     case "azul": 
-                        this.setPosicao(10, 185);
+                        //this.setPosicao(10, 185);
                         break;
                     case "amarelo":
-                        this.setPosicao(9, 185);
+                        //this.setPosicao(9, 185);
                         velocidade_anterior = 0;
                         aceleracao_anterior = 0;
                         break;
                     case "vermelho_claro":
-                        this.setPosicao(10, 10);
+                        //this.setPosicao(10, 10);
                         break;
                     case "vermelho_esc":
-                        this.setPosicao(10, 10);
+                        //this.setPosicao(10, 10);
                         break;
                     case "verde_claro": 
-                        this.setPosicao(10, 10);
+                        //this.setPosicao(10, 10);
                         break;
                     case "verde_esc":
-                        this.setPosicao(10, 10);
+                        //this.setPosicao(10, 10);
                         break;
                     case "marrom":
-                        this.setPosicao(10, 10);
+                        //this.setPosicao(10, 10);
                         break;
                     case "rosa":
-                        this.setPosicao(10, 10);
+                        //this.setPosicao(10, 10);
                         break;
                     case "laranja":
-                        this.setPosicao(1, 185);
+                        //this.setPosicao(1, 185);
                         velocidade_anterior = 1;
                         aceleracao_anterior = 0;
                         break;
-            }
-            
+            }*/
+            setPosicao(pInicial.getLinha(), pInicial.getColuna());
+        }  
             
             return;
     }

@@ -16,14 +16,15 @@ import javax.swing.ImageIcon;
  * @author Junio
  */
 public abstract class Elemento implements Serializable {
-
     protected ImageIcon iImage;
     protected Posicao pPosicao;
+    public Posicao pInicial; // posicao incial do elemento na tela
     protected boolean bTransponivel; /*Pode passar por cima?*/
     protected boolean bMortal;       /*Se encostar, morre?*/
     
-    protected Elemento(String sNomeImagePNG) {
+    protected Elemento(String sNomeImagePNG, int linha, int coluna) {
         this.pPosicao = new Posicao(1, 1);
+        this.pInicial = new Posicao (linha, coluna);
         this.bTransponivel = true;
         this.bMortal = false;
         try {
@@ -37,6 +38,7 @@ public abstract class Elemento implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
+    
 
     public Posicao getPosicao() {
         return pPosicao;

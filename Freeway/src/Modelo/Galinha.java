@@ -2,6 +2,7 @@ package Modelo;
 
 import Auxiliar.Consts;
 import Auxiliar.Desenhador;
+import Auxiliar.Posicao;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.IOException;
@@ -15,8 +16,22 @@ import javax.swing.JPanel;
  * @author Junio
  */
 public class Galinha extends Elemento implements Serializable{
-    public Galinha(String sNomeImagePNG) {
-        super(sNomeImagePNG);
+    private int vida;
+    
+    public Galinha(String sNomeImagePNG, int linha, int coluna) {
+        super(sNomeImagePNG, linha, coluna);
+        vida = 3;
+    }
+    
+    public boolean decrementaVida(){
+        if(vida == 0)
+            return false;
+        else
+            vida--;
+        
+        setPosicao(pInicial.getLinha(), pInicial.getColuna());
+        
+        return true;
     }
 
     public void voltaAUltimaPosicao(){

@@ -24,7 +24,9 @@ public class ControleDeJogo {
             eTemp = e.get(i); /*Pega o i-esimo elemento do jogo*/
             /*Verifica se o heroi se sobrepoe ao i-ésimo elemento*/
             if(hHero.getPosicao().estaNaMesmaPosicao(eTemp.getPosicao()))
-                hHero.setPosicao(11,4);
+                if(hHero.decrementaVida()){
+                    // restart
+                }
         }        
     }
     

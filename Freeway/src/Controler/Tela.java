@@ -13,16 +13,15 @@ import java.util.zip.*;
  * @author junio
  */
 public class Tela extends javax.swing.JFrame implements MouseListener, KeyListener {
-
+    /*
     private Galinha hHero;
     private Carro CarroAzul, CarroAmarelo, CarroVerdeClaro, CarroLaranja;
-    private ArrayList<Elemento> eElementos;
+    private ArrayList<Elemento> eElementos;*/
+    private Fase faseAtual;
     private ControleDeJogo cControle = new ControleDeJogo();
     private Graphics g2;
-    /**
-     * Creates new form
-     */
-    public Tela() {
+   
+    public Tela(int dif) {
         Desenhador.setCenario(this); /*Desenhador funciona no modo estatico*/
         initComponents();
  
@@ -32,36 +31,40 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.setSize(2*Consts.RES * Consts.CELL_SIDE + getInsets().left + getInsets().right,
                 Consts.RES * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
 
-        /*Este array vai guardar os elementos graficos*/
+        
+        faseAtual = new Fase(dif);
+        /*
+        /*Este array vai guardar os elementos graficos
         eElementos = new ArrayList<Elemento>(100);
-
+        
         /*Cria eElementos adiciona elementos*/
-        /*O protagonista (heroi) necessariamente precisa estar na posicao 0 do array*/
-        hHero = new Galinha("galinha.png"); /* https://www.online-image-editor.com/ */
-        hHero.setPosicao(14, 1);
+        /*O protagonista (heroi) necessariamente precisa estar na posicao 0 do array
+        hHero = new Galinha("galinha.png", 14, 1); /* https://www.online-image-editor.com/ 
+        //hHero.setPosicao(14, 1);
         this.addElemento(hHero);
         
-        CarroAzul = new Carro("carro_azul.png", true, "azul");
-        CarroAzul.setPosicao(10, 185);
+        CarroAzul = new Carro("carro_azul.png", true, "azul", 10, 185);
+        //CarroAzul.setPosicao(10, 185);
         this.addElemento(CarroAzul);
         
-        CarroAmarelo = new Carro("carro_amarelo.png", true, "amarelo");
-        CarroAmarelo.setPosicao(9, 185);
+        CarroAmarelo = new Carro("carro_amarelo.png", true, "amarelo", 9, 185);
+        //CarroAmarelo.setPosicao(9, 185);
         this.addElemento(CarroAmarelo);
         
-        CarroLaranja = new Carro("carro_laranja.png", true, "laranja");
-        CarroLaranja.setPosicao(1, 185);
-        this.addElemento(CarroLaranja);
+        CarroLaranja = new Carro("carro_laranja.png", true, "laranja", 1, 185);
+        //CarroLaranja.setPosicao(1, 185);
+        this.addElemento(CarroLaranja);*/
+        
     }
 
 /*--------------------------------------------------*/
-    public void addElemento(Elemento umElemento) {
+    /*public void addElemento(Elemento umElemento) {
         eElementos.add(umElemento);
     }
 
     public void removeElemento(Elemento umElemento) {
         eElementos.remove(umElemento);
-    }
+    }*/
 
     public Graphics getGraphicsBuffer(){
         return g2;
@@ -92,9 +95,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         } 
         
         /*Aqui podem ser inseridos novos processamentos de controle*/
-        if (!this.eElementos.isEmpty()) {
-            this.cControle.desenhaTudo(eElementos);
-            this.cControle.processaTudo(eElementos);
+        if (!faseAtual.eElementos.isEmpty()) {
+            this.cControle.desenhaTudo(faseAtual.eElementos);
+            this.cControle.processaTudo(faseAtual.eElementos);
         }
 
         g.dispose();
@@ -119,38 +122,40 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     public void keyPressed(KeyEvent e) {
         /*Movimento do heroi via teclado*/
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            hHero.moveUp();
+            faseAtual.hHero.moveUp();
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            hHero.moveDown();
+            faseAtual.hHero.moveDown();
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            hHero.moveLeft();
+            faseAtual.hHero.moveLeft();
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            hHero.moveRight();
+            faseAtual.hHero.moveRight();
         } else if (e.getKeyCode() == KeyEvent.VK_R) {
-            hHero = new Galinha("galinha.png"); /* https://www.online-image-editor.com/ */
-            hHero.setPosicao(14, 1);
+            faseAtual = new Fase(faseAtual.mostraDificuldade());
+            /*
+            hHero = new Galinha("galinha.png", 14, 1); /* https://www.online-image-editor.com/ 
+            //hHero.setPosicao(14, 1);
             this.addElemento(hHero);
 
-            CarroAzul = new Carro("carro_azul.png", true, "azul");
-            CarroAzul.setPosicao(10, 185);
+            CarroAzul = new Carro("carro_azul.png", true, "azul", 10, 185);
+            //CarroAzul.setPosicao(10, 185);
             this.addElemento(CarroAzul);
 
-            CarroAmarelo = new Carro("carro_amarelo.png", true, "amarelo");
-            CarroAmarelo.setPosicao(9, 185);
+            CarroAmarelo = new Carro("carro_amarelo.png", true, "amarelo", 9, 185);
+            //CarroAmarelo.setPosicao(9, 185);
             this.addElemento(CarroAmarelo);
 
-            CarroLaranja = new Carro("carro_laranja.png", true, "laranja");
-            CarroLaranja.setPosicao(1, 185);
-            this.addElemento(CarroLaranja);
+            CarroLaranja = new Carro("carro_laranja.png", true, "laranja", 1, 185);
+            //CarroLaranja.setPosicao(1, 185);
+            this.addElemento(CarroLaranja);*/
         }
         
-        
+   
         /*Se o heroi for para uma posicao invalida, sorbre um elemento intransponivel, volta para onde estava*/
-        if (!cControle.ehPosicaoValida(this.eElementos,hHero.getPosicao())) {
-            hHero.voltaAUltimaPosicao();
+        if (!cControle.ehPosicaoValida(faseAtual.eElementos, faseAtual.hHero.getPosicao())) {
+            faseAtual.hHero.voltaAUltimaPosicao();
         }
 
-        this.setTitle("-> Cell: " + (hHero.getPosicao().getColuna()) + ", " + (hHero.getPosicao().getLinha()));
+        this.setTitle("-> Cell: " + (faseAtual.hHero.getPosicao().getColuna()) + ", " + (faseAtual.hHero.getPosicao().getLinha()));
     }
 
     public void mousePressed(MouseEvent e) {
@@ -161,11 +166,11 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
          this.setTitle("X: "+ x + ", Y: " + y +
          " -> Cell: " + (y/Consts.CELL_SIDE) + ", " + (x/Consts.CELL_SIDE));
         
-         this.hHero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
+         faseAtual.hHero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
 
         /*Se o heroi for para uma posicao invalida, sobre um elemento intransponivel, volta para onde estava*/
-        if (!cControle.ehPosicaoValida(this.eElementos,hHero.getPosicao())) {
-            hHero.voltaAUltimaPosicao();
+        if (!cControle.ehPosicaoValida(faseAtual.eElementos,faseAtual.hHero.getPosicao())) {
+            faseAtual.hHero.voltaAUltimaPosicao();
         }         
          
         repaint();
