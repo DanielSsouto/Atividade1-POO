@@ -60,4 +60,4 @@ public class Fase {
     public int mostraFase(){
         return faseAtual;
     }
-}(faseAtual%10)
+}

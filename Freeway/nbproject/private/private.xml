@@ -4,7 +4,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/danie/Desktop/Atividades-POO/Freeway/src/Modelo/Fase.java</file>
+=======
+            <file>file:/home/gabriel/NetBeansProjects/Atividades-POO/Freeway/src/Controler/Tela.java</file>
+            <file>file:/home/gabriel/NetBeansProjects/Atividades-POO/Freeway/src/Modelo/Fase.java</file>
+            <file>file:/home/gabriel/NetBeansProjects/Atividades-POO/Freeway/src/Modelo/Main.java</file>
+            <file>file:/home/gabriel/NetBeansProjects/Atividades-POO/Freeway/src/Modelo/Carro.java</file>
+            <file>file:/home/gabriel/NetBeansProjects/Atividades-POO/Freeway/src/Modelo/Galinha.java</file>
+            <file>file:/home/gabriel/NetBeansProjects/Atividades-POO/Freeway/src/Modelo/Elemento.java</file>
+            <file>file:/home/gabriel/NetBeansProjects/Atividades-POO/Freeway/src/Controler/ControleDeJogo.java</file>
+            <file>file:/home/gabriel/NetBeansProjects/Atividades-POO/Freeway/src/Auxiliar/Posicao.java</file>
+            <file>file:/home/gabriel/NetBeansProjects/Atividades-POO/Freeway/src/Auxiliar/Consts.java</file>
+>>>>>>> e7ecf4e53e82f89cfa608ccb28d70e08ebb7c6cd
         </group>
     </open-files>
 </project-private>
