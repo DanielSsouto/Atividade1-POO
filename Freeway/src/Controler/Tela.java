@@ -22,7 +22,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     private ControleDeJogo cControle = new ControleDeJogo();
     private Graphics g2;
    
-    public Tela(int dif) {
+    public Tela(int dif) { //dificuldade
         Desenhador.setCenario(this); /*Desenhador funciona no modo estatico*/
         initComponents();
  
@@ -34,27 +34,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
         
         faseAtual = new Fase(dif);
-        /*
-        /*Este array vai guardar os elementos graficos
-        eElementos = new ArrayList<Elemento>(100);
-        
-        /*Cria eElementos adiciona elementos*/
-        /*O protagonista (heroi) necessariamente precisa estar na posicao 0 do array
-        hHero = new Galinha("galinha.png", 14, 1); /* https://www.online-image-editor.com/ 
-        //hHero.setPosicao(14, 1);
-        this.addElemento(hHero);
-        
-        CarroAzul = new Carro("carro_azul.png", true, "azul", 10, 185);
-        //CarroAzul.setPosicao(10, 185);
-        this.addElemento(CarroAzul);
-        
-        CarroAmarelo = new Carro("carro_amarelo.png", true, "amarelo", 9, 185);
-        //CarroAmarelo.setPosicao(9, 185);
-        this.addElemento(CarroAmarelo);
-        
-        CarroLaranja = new Carro("carro_laranja.png", true, "laranja", 1, 185);
-        //CarroLaranja.setPosicao(1, 185);
-        this.addElemento(CarroLaranja);*/
         
     }
 
@@ -97,11 +76,13 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         
         if (!faseAtual.eElementos.isEmpty()) {
             this.cControle.desenhaTudo(faseAtual.eElementos);
-            if(this.cControle.processaTudo(faseAtual.eElementos))
-                faseAtual.incrementaFase();
+            if(this.cControle.processaTudo(faseAtual)){ // se o heroi atravessou a rua
+                faseAtual.incrementaFase(); // entao ele passou de faze
+                /* adicionar aqui rotina para inserir contador das fases*/
+            }
             
-            if(faseAtual.mostraFase() == TOTAL_DE_FASES){
-                //restart
+            if(faseAtual.mostraFase() == TOTAL_DE_FASES){ // se o jogo terminou
+                faseAtual.restart();
             }
         }
 
@@ -136,22 +117,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             faseAtual.hHero.moveRight();
         }*/ else if (e.getKeyCode() == KeyEvent.VK_R) {
             faseAtual = new Fase(faseAtual.mostraDificuldade());
-            /*
-            hHero = new Galinha("galinha.png", 14, 1); /* https://www.online-image-editor.com/ 
-            //hHero.setPosicao(14, 1);
-            this.addElemento(hHero);
-
-            CarroAzul = new Carro("carro_azul.png", true, "azul", 10, 185);
-            //CarroAzul.setPosicao(10, 185);
-            this.addElemento(CarroAzul);
-
-            CarroAmarelo = new Carro("carro_amarelo.png", true, "amarelo", 9, 185);
-            //CarroAmarelo.setPosicao(9, 185);
-            this.addElemento(CarroAmarelo);
-
-            CarroLaranja = new Carro("carro_laranja.png", true, "laranja", 1, 185);
-            //CarroLaranja.setPosicao(1, 185);
-            this.addElemento(CarroLaranja);*/
         }
         
    

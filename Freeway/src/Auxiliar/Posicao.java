@@ -1,5 +1,6 @@
 package Auxiliar;
 
+import static Auxiliar.Consts.TIMER_DISPARO;
 import java.io.Serializable;
 
 public class Posicao implements Serializable{
@@ -19,7 +20,7 @@ public class Posicao implements Serializable{
         linhaAnterior = this.linha;
         this.linha = linha;
         
-        if(coluna < 0 || coluna >= 16*Auxiliar.Consts.RES) // sao 2*Res celulas, e cada celula eh dividida em 8
+        if(coluna < 0 || coluna >= TIMER_DISPARO*2*Auxiliar.Consts.RES) // sao 2*Res celulas, e cada celula eh dividida em 8
             return false;
         colunaAnterior = this.coluna;
         this.coluna = coluna;
@@ -39,7 +40,7 @@ public class Posicao implements Serializable{
     }
 
     public boolean estaNaMesmaPosicao(Posicao posicao){
-        return (Math.abs(linha - posicao.getLinha()) == 0 && Math.abs(coluna-posicao.getColuna()) <= 8);
+        return (Math.abs(linha - posicao.getLinha()) == 0 && Math.abs(coluna-posicao.getColuna()) <= TIMER_DISPARO);
     }
 
     public boolean copia(Posicao posicao){

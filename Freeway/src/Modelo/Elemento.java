@@ -23,7 +23,7 @@ public abstract class Elemento implements Serializable {
     protected boolean bMortal;       /*Se encostar, morre?*/
     
     protected Elemento(String sNomeImagePNG, int linha, int coluna) {
-        this.pPosicao = new Posicao(1, 1);
+        this.pPosicao = new Posicao(linha, coluna);
         this.pInicial = new Posicao (linha, coluna);
         this.bTransponivel = true;
         this.bMortal = false;
