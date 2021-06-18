@@ -51,11 +51,11 @@ public class Carro extends Elemento implements Serializable{
                     break;
             // aceleracao senoidal
                 case 6:
-                    velocidade_anterior = (float) (30)/TIMER_DISPARO;
+                    velocidade_anterior = (float) 30/TIMER_DISPARO;
                     aceleracao_anterior = (float) 0;
                     break;
                 case 7:
-                    velocidade_anterior = (float) (30)/TIMER_DISPARO;
+                    velocidade_anterior = (float) 30/TIMER_DISPARO;
                     aceleracao_anterior = (float) 0;
                     break;
                     
@@ -171,14 +171,14 @@ public class Carro extends Elemento implements Serializable{
                                                 this.pPosicao.getColuna() + dif*sentido*((int) velocidade_anterior)); 
                     
                     velocidade_anterior += aceleracao_anterior;
-                    aceleracao_anterior = (float) (2*Math.sin(Math.toRadians((24*TIMER_DISPARO - this.getPosicao().getColuna()%(12*TIMER_DISPARO))*360/(12*TIMER_DISPARO)))/TIMER_DISPARO);
+                    aceleracao_anterior += (float) (2*Math.sin(7*velocidade_anterior/TIMER_DISPARO)/TIMER_DISPARO);
                     break;
                     
                 case 7:
                     c = this.pPosicao.setPosicao(this.pPosicao.getLinha(), 
                                                 this.pPosicao.getColuna() + dif*sentido*((int) velocidade_anterior)); 
                     velocidade_anterior += aceleracao_anterior;
-                    aceleracao_anterior = (float) (8*Math.sin(Math.toRadians((24*TIMER_DISPARO - this.getPosicao().getColuna()%(12*TIMER_DISPARO))*360/(12*TIMER_DISPARO)))/TIMER_DISPARO);
+                    aceleracao_anterior += (float) (2*Math.sin(9*velocidade_anterior/TIMER_DISPARO)/TIMER_DISPARO);
                     break;
                 // aceleracao aleatoria
                 case 8:

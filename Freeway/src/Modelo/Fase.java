@@ -21,11 +21,11 @@ public class Fase {
         eElementos.add(hHero);
         
         if (dificuldade == 0){ // 3 tipos de carros apenas
-            aux = new Carro("carro_amarelo.png", true, "amarelo", 10, 0, 0, 1);
+            aux = new Carro("carro_amarelo.png", true, "amarelo", 10, 0, 6, 1);
             eElementos.add(aux);
             cCarros.add(aux);
             
-            aux = new Carro("carro_laranja.png", true, "laranja", 9, 0, 5, 1);
+            aux = new Carro("carro_laranja.png", true, "laranja", 9, 0, 7, 1);
             eElementos.add(aux);
             cCarros.add(aux);
             

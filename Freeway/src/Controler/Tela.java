@@ -77,7 +77,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         if (!faseAtual.eElementos.isEmpty()) {
             this.cControle.desenhaTudo(faseAtual.eElementos);
             if(this.cControle.processaTudo(faseAtual)){ // se o heroi atravessou a rua
-                faseAtual.incrementaFase(); // entao ele passou de faze
+                faseAtual.incrementaFase(); // entao ele passou de fase
                 /* adicionar aqui rotina para inserir contador das fases*/
             }
             

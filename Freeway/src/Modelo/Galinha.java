@@ -19,11 +19,11 @@ public class Galinha extends Elemento implements Serializable{
     
     public Galinha(String sNomeImagePNG, int linha, int coluna) {
         super(sNomeImagePNG, linha, coluna);
-        vida = 2;
+        vida = 3;
     }
     
     public boolean decrementaVida(){
-        if(vida == 0){
+        if(vida == 1){
             setPosicao(pInicial.getLinha(), pInicial.getColuna());
             return false;
         }else
