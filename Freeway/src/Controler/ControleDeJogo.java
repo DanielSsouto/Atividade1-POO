@@ -19,7 +19,7 @@ public class ControleDeJogo {
         }
     }
     
-    public boolean processaTudo(Fase faseAtual){
+    public boolean processaTudo(Fase faseAtual){ //true, se o heroi chegou no fim da rua
         ArrayList<Elemento> e = faseAtual.eElementos;
         Galinha hHero = (Galinha)e.get(0); /*O heroi (protagonista) eh sempre o primeiro do array*/        
         Elemento eTemp;

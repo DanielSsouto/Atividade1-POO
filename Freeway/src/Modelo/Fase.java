@@ -42,14 +42,16 @@ public class Fase {
         }
         return;
     }
-    public int vidaGalinha(){
-            return hHero.vida;
-    }
+    
     public Fase(int dif){
         dificuldade = dif;
         faseAtual = 0;
         declaraElementos();
     
+    }
+    
+    public int vidaGalinha(){
+        return hHero.vida;
     }
     
     // aumenta a velocidade dos carrinhos
@@ -61,7 +63,6 @@ public class Fase {
     
     private void piscaCarrinhos(){
        for(Carro aux : cCarros){
-          
            aux.piscar = true;
            aux.intervalo_piscada[0] = Math.random()*2*Consts.RES;
            double auxiliar = Math.min(4, 2*Consts.RES - aux.intervalo_piscada[0]);
@@ -75,7 +76,7 @@ public class Fase {
     public void incrementaFase(){
         faseAtual++;
         hHero.setPosicao(hHero.pInicial.getLinha(), hHero.pInicial.getColuna());
-        if(faseAtual == 10) // a cada dez fases, uma nova dificuldade eh criada
+        if(faseAtual == 10) // a cada dez fases, uma nova dificuldade eh adicionada
             mudaCarrinhos();
         if(faseAtual == 20)
             piscaCarrinhos();

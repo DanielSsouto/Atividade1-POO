@@ -21,7 +21,7 @@ public class Desenhador implements Serializable {
     }
     
     public static void desenhar(ImageIcon iImage, int iColuna, int iLinha) {
-        // na horazontal, avancar uma coluna siginifica andar 1/150 de celula
+        // na horazontal, avancar uma coluna siginifica andar 1/15 de celula
         // na vertical, avancar uma linha significa andar 1 celula
         iImage.paintIcon(tCenarioOndeSeDesenha,getGraphicsDaTela(),iColuna * Consts.CELL_SIDE/TIMER_DISPARO, iLinha * Consts.CELL_SIDE);
     }

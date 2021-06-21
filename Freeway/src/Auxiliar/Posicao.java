@@ -40,6 +40,8 @@ public class Posicao implements Serializable{
     }
 
     public boolean estaNaMesmaPosicao(Posicao posicao){
+        // dois elementos estao na mesma posicao se eles estao na mesma linha e se
+        // a distancia de suas colunas eh menor do que o numero de colunar em uma celula
         return (Math.abs(linha - posicao.getLinha()) == 0 && Math.abs(coluna-posicao.getColuna()) <= TIMER_DISPARO);
     }
 
