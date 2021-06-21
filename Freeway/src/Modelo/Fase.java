@@ -1,6 +1,7 @@
 
 package Modelo;
 
+import Auxiliar.Consts;
 import static Auxiliar.Consts.TIMER_DISPARO;
 import java.util.ArrayList;
 
@@ -17,106 +18,33 @@ public class Fase {
         Carro aux;
         eElementos = new ArrayList(15);
         cCarros = new ArrayList(11);
-        hHero = new Galinha("galinha.png", 0, 4*TIMER_DISPARO); 
+        hHero = new Galinha("galinha.png", 0, 4*TIMER_DISPARO);
         eElementos.add(hHero);
+  
+        String cores[] = {"amarelo", "laranja", "azul", "marrom", "rosa", "verde_claro","vermelho_claro", "vermelho_esc", "azul", "verde_claro" };
+        //padrao de corportamento da dificuldade 0,1 e 2
+        int padrao[][] = {{6,7,4,2,0,4,0,2,4,0}, {0,1,2,5,0,4,0,2,4,0}, {4,5,0,2,1,8,8,2,1,0} };
+        int k = 10;
+        int coluna=0;
+        int direcao = 1;
         
-        if (dificuldade == 0){ // 3 tipos de carros apenas
-            aux = new Carro("carro_amarelo.png", true, "amarelo", 10, 0, 6, 1);
+        //cria cada um dos carros a partir de sua cor e padrao    
+        for(String cor : cores){
+            //muda os carros de lado a partir da 5 pista
+            if(k<=5){
+                coluna = TIMER_DISPARO*23;
+                direcao = -1;
+            }
+            aux = new Carro("carro_"+cor + ".png", true, cor, k,coluna,padrao[dificuldade][10-k],direcao);
             eElementos.add(aux);
             cCarros.add(aux);
-            
-            aux = new Carro("carro_laranja.png", true, "laranja", 9, 0, 7, 1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_azul.png", true, "azul", 8, 0, 4, 1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_marrom.png", true, "marrom", 7, 0, 2, 1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_rosa.png", true, "rosa", 6, 0, 0, 1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_verde_claro.png", true, "verde_claro", 5, TIMER_DISPARO*23, 4, -1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_vermelho_claro.png", true, "vermelho_claro", 4, TIMER_DISPARO*23, 0, -1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_vermelho_esc.png", true, "vermelho_esc", 3, TIMER_DISPARO*23, 2, -1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_azul.png", true, "azul", 2, TIMER_DISPARO*23, 4, -1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_verde_claro.png", true, "verde_claro", 1, TIMER_DISPARO*23, 0, -1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-        
-        } else if(dificuldade == 1){ // 5 tipos de carros
-            aux = new Carro("carro_amarelo.png", true, "amarelo", 10, 0, 0, 1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_laranja.png", true, "laranja", 9, 0, 1, 1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_azul.png", true, "azul", 8, 0, 2, 1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_marrom.png", true, "marrom", 7, 0, 5, 1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_rosa.png", true, "rosa", 6, 0, 0, 1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_verde_claro.png", true, "verde_claro", 5, TIMER_DISPARO*23, 4, -1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_vermelho_claro.png", true, "vermelho_claro", 4, TIMER_DISPARO*23, 0, -1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_vermelho_esc.png", true, "vermelho_esc", 3, TIMER_DISPARO*23, 2, -1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_azul.png", true, "azul", 2, TIMER_DISPARO*23, 4, -1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-            aux = new Carro("carro_verde_claro.png", true, "verde_claro", 1, TIMER_DISPARO*23, 0, -1);
-            eElementos.add(aux);
-            cCarros.add(aux);
-            
-        } else if(dificuldade == 2){ // todos os tipos de carros
-            //comentei pq estou com preguica de codar isso
-            /*eElementos.add(new Carro("carro_amarelo.png", true, "amarelo", 10, 0, 4, 1));
-            eElementos.add(new Carro("carro_laranja.png", true, "laranja", 9, 0, 5, 1));
-            eElementos.add(new Carro("carro_azul.png", true, "azul", 8, 0, 0, 1));
-            eElementos.add(new Carro("carro_marrom.png", true, "marrom", 7, 0, 2, 1));
-            eElementos.add(new Carro("carro_rosa.png", true, "rosa", 6, 0, 1, 1));
-            eElementos.add(new Carro("carro_verde_claro.png", true, "verde_claro", 5, TIMER_DISPARO*23, 8, -1));
-            eElementos.add(new Carro("carro_vermelho_claro.png", true, "vermelho_claro", 4, TIMER_DISPARO*23, 8, -1));
-            eElementos.add(new Carro("carro_vermelho_esc.png", true, "vermelho_esc", 3, TIMER_DISPARO*23, 2, -1));
-            eElementos.add(new Carro("carro_azul.png", true, "azul", 2, TIMER_DISPARO*23, 1, -1));
-            eElementos.add(new Carro("carro_verde_claro.png", true, "verde_claro", 1, TIMER_DISPARO*23, 0, -1));*/}
+            k--;
+        }
         return;
     }
-    
+    public int vidaGalinha(){
+            return hHero.vida;
+    }
     public Fase(int dif){
         dificuldade = dif;
         faseAtual = 0;
@@ -132,7 +60,16 @@ public class Fase {
     }
     
     private void piscaCarrinhos(){
-    
+       for(Carro aux : cCarros){
+          
+           aux.piscar = true;
+           aux.intervalo_piscada[0] = Math.random()*2*Consts.RES;
+           double auxiliar = Math.min(4, 2*Consts.RES - aux.intervalo_piscada[0]);
+           aux.intervalo_piscada[1] = auxiliar + aux.intervalo_piscada[0];
+           
+           System.out.println("intervalo de piscada:" + String.valueOf(aux.intervalo_piscada[0])+"  "+String.valueOf(aux.intervalo_piscada[1]) );
+        }
+       
     }
     
     public void incrementaFase(){

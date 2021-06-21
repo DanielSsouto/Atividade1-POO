@@ -20,8 +20,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     private ArrayList<Elemento> eElementos;*/
     private Fase faseAtual;
     private ControleDeJogo cControle = new ControleDeJogo();
-    private Graphics g2;
-   
+    private Graphics g2;    
     public Tela(int dif) { //dificuldade
         Desenhador.setCenario(this); /*Desenhador funciona no modo estatico*/
         initComponents();
@@ -34,7 +33,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
         
         faseAtual = new Fase(dif);
-        
     }
 
 /*--------------------------------------------------*/
@@ -55,6 +53,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Graphics g = this.getBufferStrategy().getDrawGraphics();
         /*Criamos um contexto gráfico*/
         g2 = g.create(getInsets().left, getInsets().top, getWidth() - getInsets().right, getHeight() - getInsets().top);
+        
         /*Desenha cenário*/
         for (int i = 0; i < Consts.RES; i++) {
             for (int j = 0; j < 2*Consts.RES; j++) {
@@ -67,7 +66,36 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                     }else{
                         Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "asfalto.png");
                         g2.drawImage(newImage,j*Consts.CELL_SIDE, i*Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
+                    
                     }
+                    
+                    //Printa as vidas da galinha na tela
+                    if(i == 0){
+                        if(j >= 2*Consts.RES - faseAtual.vidaGalinha() && j <= 2*Consts.RES){
+                         
+                         Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "galinha.png");
+                         g2.drawImage(newImage,j*Consts.CELL_SIDE, i*Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
+                         
+                     }
+                     //print a fase atual
+                        if(j == Consts.RES){
+                            int fase = (int) faseAtual.mostraFase()/10;
+                            Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + String.valueOf(fase) + ".png");
+                            g2.drawImage(newImage,j*Consts.CELL_SIDE, i*Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
+                         
+                        }
+                        
+                        if(j == Consts.RES +1){
+                            int fase = (int) faseAtual.mostraFase()/10;
+                            fase = faseAtual.mostraFase() - 10*fase;
+                            Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + String.valueOf(fase) + ".png");
+                            g2.drawImage(newImage,j*Consts.CELL_SIDE, i*Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
+                         
+                        }   
+                //faseAtual.restart();
+            }
+                    
+                              
                 } catch (IOException ex) {
                     Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -82,6 +110,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             }
             
             if(faseAtual.mostraFase() == TOTAL_DE_FASES){ // se o jogo terminou
+                
                 faseAtual.restart();
             }
         }
@@ -129,21 +158,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     }
 
     public void mousePressed(MouseEvent e) {
-         //Movimento via mouse
-         int x = e.getX();
-         int y = e.getY();
-     
-         this.setTitle("X: "+ x + ", Y: " + y +
-         " -> Cell: " + (y/Consts.CELL_SIDE) + ", " + (x/Consts.CELL_SIDE));
         
-         faseAtual.hHero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
-
-        /*Se o heroi for para uma posicao invalida, sobre um elemento intransponivel, volta para onde estava*/
-        if (!cControle.ehPosicaoValida(faseAtual.eElementos,faseAtual.hHero.getPosicao())) {
-            faseAtual.hHero.voltaAUltimaPosicao();
-        }         
-         
-        repaint();
     }
 
     /**

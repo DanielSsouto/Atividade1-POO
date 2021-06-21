@@ -21,7 +21,7 @@ public class ControleDeJogo {
     
     public boolean processaTudo(Fase faseAtual){
         ArrayList<Elemento> e = faseAtual.eElementos;
-        Galinha hHero = (Galinha)e.get(0); /*O heroi (protagonista) eh sempre o primeiro do array*/
+        Galinha hHero = (Galinha)e.get(0); /*O heroi (protagonista) eh sempre o primeiro do array*/        
         Elemento eTemp;
         /*Processa todos os demais em relacao ao heroi*/
         for(int i = 1; i < e.size(); i++){
@@ -38,7 +38,7 @@ public class ControleDeJogo {
             return true;
         else
             return false;
-    }
+    } 
     
     public boolean ehPosicaoValida(ArrayList<Elemento> e, Posicao p){
         Elemento eTemp;

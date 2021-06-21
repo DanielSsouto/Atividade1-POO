@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * @author Junio
  */
 public class Galinha extends Elemento implements Serializable{
-    private int vida;
+    public int vida;
     
     public Galinha(String sNomeImagePNG, int linha, int coluna) {
         super(sNomeImagePNG, linha, coluna);

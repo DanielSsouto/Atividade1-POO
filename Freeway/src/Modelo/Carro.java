@@ -1,5 +1,6 @@
 package Modelo;
 
+import Auxiliar.Consts;
 import static Auxiliar.Consts.TIMER_DISPARO;
 import Auxiliar.Desenhador;
 import Controler.Tela;
@@ -17,7 +18,9 @@ public class Carro extends Elemento implements Serializable{
     private int padraoDeVelocidade; // [0-8]
     private int sentido;
     private int dif;
-    
+    public boolean piscar;
+    private boolean piscando;
+    public double intervalo_piscada[] = {0.0,0.0};
     private void defineVelocicadeEAceleracao(){
         switch(padraoDeVelocidade){
             // velocidade constante
@@ -77,6 +80,8 @@ public class Carro extends Elemento implements Serializable{
         brecar = false;
         sentido = meuSentido;
         dif = 1;
+        piscar = false;
+        piscando = false;
         
         return;
     }
@@ -205,14 +210,35 @@ public class Carro extends Elemento implements Serializable{
     }
 
     public void autoDesenho() {
-        super.autoDesenho();
-        boolean soma_volta = false;
+        //Faz os caros piscarem se estiverem dentro de certo intervalo
+        if(piscar){
+            if(this.pPosicao.getColuna()>=intervalo_piscada[0] && this.pPosicao.getColuna()<=intervalo_piscada[1] ) {    
+                piscando = true; 
+
+            }
+            else
+                piscando = false;
+        }
+           
+        
+        if(!piscando){
+   
+            super.autoDesenho();
+        }
         
         /*Movo a direita, quando nao poder se mover ainda mais para a direita, pede para ser removido do jogo*/
         if(!this.move()){
+           
             setPosicao(pInicial.getLinha(), pInicial.getColuna());
-        }  
+            //define um novo intervalo de piscada
+            if(piscar){                
+                intervalo_piscada[0] = Math.random()*2*Consts.RES*TIMER_DISPARO;
+                double auxiliar = Math.min(2*TIMER_DISPARO, 2*Consts.RES*TIMER_DISPARO - intervalo_piscada[0]);
+                intervalo_piscada[1] = auxiliar + intervalo_piscada[0];
+            }
             
+        }  
+    
         return;
     }
     

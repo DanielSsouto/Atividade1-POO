@@ -73,6 +73,7 @@ public abstract class Elemento implements Serializable {
     }
     
    public void autoDesenho(){
+       
         Desenhador.desenhar(this.iImage, pPosicao.getColuna(), pPosicao.getLinha());        
     }    
 }
