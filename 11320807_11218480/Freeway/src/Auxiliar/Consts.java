@@ -1,6 +1,8 @@
 package Auxiliar;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  *
@@ -13,6 +15,6 @@ public class Consts {
     public static final String PATH = File.separator+"imgs"+File.separator;
     /*Em numero de frames (redesenhos). Usamos essa consntante tbm para definir
     a velocidade dos carros.*/
-    public static final int TIMER_DISPARO = 15; 
+    public static final int TIMER_DISPARO = 15;
     public static final int TOTAL_DE_FASES = 30;
 }

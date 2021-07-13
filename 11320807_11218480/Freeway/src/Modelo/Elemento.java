@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -73,7 +74,6 @@ public abstract class Elemento implements Serializable {
     }
     
    public void autoDesenho(){
-       
         Desenhador.desenhar(this.iImage, pPosicao.getColuna(), pPosicao.getLinha());        
     }    
 }

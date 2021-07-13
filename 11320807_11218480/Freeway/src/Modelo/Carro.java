@@ -10,67 +10,19 @@ import java.util.*;
 import Auxiliar.Posicao;
 
 
-public class Carro extends Elemento implements Serializable{
-    private String cor; 
-    private float velocidade_anterior;
-    private float aceleracao_anterior;
-    private boolean brecar;
-    private int padraoDeVelocidade; // [0-8]
-    private int sentido;
-    private int dif; // padrao de dificuldade atual
-    public boolean piscar;
-    private boolean piscando;
+public abstract class Carro extends Elemento implements Serializable{
+    protected String cor; 
+    protected float velocidade_anterior;
+    protected float aceleracao_anterior;
+    protected boolean brecar;
+    protected int padraoDeVelocidade; // [0-8]
+    protected int sentido;
+    protected int dif; // padrao de dificuldade atual
+    protected boolean piscar;
+    protected boolean piscando;
     public double intervalo_piscada[] = {0.0,0.0};
     
-    private void defineVelocicadeEAceleracao(){
-        switch(padraoDeVelocidade){
-            // velocidade constante
-            case 0: // devagar
-                velocidade_anterior = (float) (30*(2*Math.random()+1))/TIMER_DISPARO;
-                aceleracao_anterior = 0;
-                break;
-            case 1: // rapido
-                velocidade_anterior = (float) (120*(2*Math.random()+1))/TIMER_DISPARO;
-                aceleracao_anterior = 0;
-                break;
-
-            // aceleracao constante
-            case 2:
-                velocidade_anterior = (float) (30)/TIMER_DISPARO;
-                aceleracao_anterior = (float) 1.5/TIMER_DISPARO;
-                break;
-            case 3: 
-                velocidade_anterior = (float) (30)/TIMER_DISPARO;
-                aceleracao_anterior = (float) 3/TIMER_DISPARO;
-                break;
-
-            // aceleracao variavel
-            case 4: //linear
-                velocidade_anterior = (float) (30)/TIMER_DISPARO;
-                aceleracao_anterior = (float) 0.1/TIMER_DISPARO;
-                break;
-            case 5: //quadratica
-                velocidade_anterior = (float) 30/TIMER_DISPARO;
-                aceleracao_anterior = (float) 0.1/TIMER_DISPARO;
-                break;
-            // aceleracao senoidal
-            case 6:
-                velocidade_anterior = (float) 30/TIMER_DISPARO;
-                aceleracao_anterior = (float) 0;
-                break;
-            case 7:
-                velocidade_anterior = (float) 30/TIMER_DISPARO;
-                aceleracao_anterior = (float) 0;
-                break;
-
-            // aceleracao aleatoria
-            case 8:
-                velocidade_anterior = (float) (30)/TIMER_DISPARO;
-                aceleracao_anterior = (float) 3/TIMER_DISPARO;
-        }
-        
-        return;    
-    }
+    protected abstract void defineVelocicadeEAceleracao();
     
     public Carro(String sNomeImagePNG, boolean mortal, String umaCor, int linha, int coluna, int meuPadrao, int meuSentido) {
         super(sNomeImagePNG, linha, coluna);

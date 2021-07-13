@@ -10,16 +10,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Junio
- */
+
 public class Galinha extends Elemento implements Serializable{
+    private static Galinha instancia = null;
     public int vida;
     
-    public Galinha(String sNomeImagePNG, int linha, int coluna) {
+    private Galinha(String sNomeImagePNG, int linha, int coluna) {
         super(sNomeImagePNG, linha, coluna);
         vida = 3;
+    }
+    
+    public static Galinha instanciar(String sNomeImagePNG, int linha, int coluna){
+        if(instancia == null)
+            instancia = new Galinha(sNomeImagePNG, linha, coluna);
+        return instancia;
     }
     
     public boolean decrementaVida(){
@@ -36,5 +40,10 @@ public class Galinha extends Elemento implements Serializable{
 
     public void voltaAUltimaPosicao(){
         this.pPosicao.volta();
+    }
+    
+    public void matarGalinha(){
+        instancia = null;
+        return;
     }
 }

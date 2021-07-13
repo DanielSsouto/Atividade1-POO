@@ -15,6 +15,7 @@ import java.util.zip.*;
  */
 public class Tela extends javax.swing.JFrame implements KeyListener {
     private Fase faseAtual;
+    private Thread salvamento;
     private ControleDeJogo cControle = new ControleDeJogo();
     private Graphics g2;    
     
@@ -87,9 +88,12 @@ public class Tela extends javax.swing.JFrame implements KeyListener {
             if(this.cControle.processaTudo(faseAtual)){ // se o heroi atravessou a rua
                 faseAtual.incrementaFase(); // entao ele passou de fase
             }
-            if(faseAtual.mostraFase() == TOTAL_DE_FASES) // se o jogo terminou
-                faseAtual.restart();
             
+            if(faseAtual.mostraFase() == TOTAL_DE_FASES){ // se o jogo terminou
+                salvamento.interrupt();
+                faseAtual.restart();
+                IniciaSalvamento();
+            }
         }
 
         g.dispose();
@@ -110,6 +114,11 @@ public class Tela extends javax.swing.JFrame implements KeyListener {
         Timer timer = new Timer();
         timer.schedule(redesenhar, 0, Consts.PERIOD);
     }
+    
+    public void IniciaSalvamento(){
+        salvamento = new Thread(faseAtual);
+        salvamento.start();
+    }
 
     public void keyPressed(KeyEvent e) {
         /*Movimento do heroi via teclado*/
@@ -119,6 +128,12 @@ public class Tela extends javax.swing.JFrame implements KeyListener {
             faseAtual.hHero.moveDown();
         }else if (e.getKeyCode() == KeyEvent.VK_R) {
             faseAtual = new Fase(faseAtual.mostraDificuldade());
+        } else if (e.getKeyCode() == KeyEvent.VK_S) { // jogador faz um save pra si
+            faseAtual.save(0);
+        } else if (e.getKeyCode() == KeyEvent.VK_J) { // jogador retorna a seu ultimo save
+            faseAtual.retornaAoSave(0);
+        } else if (e.getKeyCode() == KeyEvent.VK_A) { // jogador retorna ao ultimo save automatico
+            faseAtual.retornaAoSave(1);
         }
    
         /*Se o heroi for para uma posicao invalida, sorbre um elemento intransponivel, volta para onde estava*/

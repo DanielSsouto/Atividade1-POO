@@ -2,9 +2,9 @@ package Controler;
 
 import static Auxiliar.Consts.TIMER_DISPARO;
 import static Auxiliar.Consts.TOTAL_DE_FASES;
-import Modelo.Elemento;
 import Modelo.Galinha;
 import Auxiliar.Posicao;
+import Modelo.Elemento;
 import Modelo.Fase;
 import java.util.ArrayList;
 

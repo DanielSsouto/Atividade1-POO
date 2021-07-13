@@ -3,22 +3,37 @@ package Modelo;
 
 import Auxiliar.Consts;
 import static Auxiliar.Consts.TIMER_DISPARO;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
-public class Fase {
+public class Fase implements Runnable {
     private int faseAtual;
     private int dificuldade;
+    public ArrayList<Elemento> eElementos;
     public Galinha hHero;
-    public ArrayList<Elemento> eElementos = null;
-    private ArrayList<Carro> cCarros = null;
+    private ObservadorCarros observaCarros;
+    private CarroFactory fabricaCarros = new CarroFactory();
     
     private void declaraElementos(){
         if(eElementos != null)
             eElementos.clear();
         Carro aux;
         eElementos = new ArrayList(15);
-        cCarros = new ArrayList(11);
-        hHero = new Galinha("galinha.png", 0, 4*TIMER_DISPARO);
+        ArrayList<Carro> cCarros = new ArrayList(11); //auxliar
+        hHero = Galinha.instanciar("galinha.png", 0, 4*TIMER_DISPARO);
         eElementos.add(hHero);
   
         String cores[] = {"amarelo", "laranja", "azul", "marrom", "rosa", "verde_claro","vermelho_claro", "vermelho_esc", "azul", "verde_claro" };
@@ -35,11 +50,14 @@ public class Fase {
                 coluna = TIMER_DISPARO*23;
                 direcao = -1;
             }
-            aux = new Carro("carro_"+cor + ".png", true, cor, k,coluna,padrao[dificuldade][10-k],direcao);
+            aux = fabricaCarros.retornaCarro("carro_"+cor + ".png", true, cor, k,coluna,padrao[dificuldade][10-k],direcao);
             eElementos.add(aux);
             cCarros.add(aux);
             k--;
         }
+        
+        observaCarros = new ObservadorCarros(cCarros);
+        
         return;
     }
     
@@ -54,32 +72,10 @@ public class Fase {
         return hHero.vida;
     }
     
-    // aumenta a velocidade dos carrinhos
-    private void mudaCarrinhos(){
-        for(Carro aux : cCarros)
-            aux.aumentaVelocidade();
-    
-    }
-    
-    private void piscaCarrinhos(){
-       for(Carro aux : cCarros){
-           aux.piscar = true;
-           aux.intervalo_piscada[0] = Math.random()*2*Consts.RES;
-           double auxiliar = Math.min(4, 2*Consts.RES - aux.intervalo_piscada[0]);
-           aux.intervalo_piscada[1] = auxiliar + aux.intervalo_piscada[0];
-           
-           System.out.println("intervalo de piscada:" + String.valueOf(aux.intervalo_piscada[0])+"  "+String.valueOf(aux.intervalo_piscada[1]) );
-        }
-       
-    }
-    
     public void incrementaFase(){
         faseAtual++;
         hHero.setPosicao(hHero.pInicial.getLinha(), hHero.pInicial.getColuna());
-        if(faseAtual == 10) // a cada dez fases, uma nova dificuldade eh adicionada
-            mudaCarrinhos();
-        if(faseAtual == 20)
-            piscaCarrinhos();
+        observaCarros.update(faseAtual);
         
         return;
     } 
@@ -94,8 +90,100 @@ public class Fase {
     
     public void restart(){
         eElementos.clear();
-        cCarros.clear();
         faseAtual = 0;
+        hHero.matarGalinha();
         declaraElementos();
+        observaCarros.update(-1);
+    }
+    
+    // dono == 1 -> o save foi feito pelo player; dono == 0 -> save automatico
+    public void save(int dono){
+        File save;
+        if(dono == 0)
+            save = new File("."+File.separator+"saves"+File.separator+"player_save.zip");
+        else
+            save = new File("."+File.separator+"saves"+File.separator+"automatic_save.zip");
+        
+        if(save.exists())
+            save.delete();
+        
+        try {
+            save.createNewFile();
+            FileOutputStream canoOut = new FileOutputStream(save);
+            GZIPOutputStream compactador = new GZIPOutputStream(canoOut);
+            ObjectOutputStream serializador = new ObjectOutputStream(compactador);
+            
+            serializador.writeObject(eElementos);
+            serializador.writeObject(new Integer(faseAtual));
+            serializador.flush();
+            
+            serializador.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return;
+    }
+    
+    public void retornaAoSave(int dono){
+        File save;
+        if(dono == 0)
+            save = new File("."+File.separator+"saves"+File.separator+"player_save.zip");
+        else
+            save = new File("."+File.separator+"saves"+File.separator+"automatic_save.zip");
+        
+        if(save.exists())
+            try{
+                FileInputStream canoIn = new FileInputStream(save);
+                GZIPInputStream descompactador = new GZIPInputStream(canoIn);
+                ObjectInputStream deserializador = new ObjectInputStream(descompactador);
+                
+                // recuperando elemetos da tela
+                eElementos.clear();
+                eElementos = (ArrayList) deserializador.readObject();
+                hHero = (Galinha) eElementos.get(0);
+                hHero.setPosicao(hHero.pInicial.getLinha(), hHero.pInicial.getColuna());
+                ArrayList<Carro> cCarros = new ArrayList(11); //auxliar
+                for(int i = 1; i < eElementos.size(); i++)
+                    cCarros.add((Carro) eElementos.get(i));
+                observaCarros.update(-1);
+                observaCarros = new ObservadorCarros(cCarros);
+                
+                Integer aux = (Integer) deserializador.readObject();
+                faseAtual = aux.intValue();
+                    
+            }catch(IOException e){
+                System.out.println(e.getMessage());
+            } catch(ClassNotFoundException e){
+                System.out.println(e.getMessage());
+            }
+    }
+
+    @Override
+    public void run() {
+        TimerTask redesenhar = new TimerTask() {
+            public void run() {
+                save(1);
+                System.out.println("Save Automatico feito!");
+            }
+        };  
+        
+        int periodo = 20; // em segundos
+        /* // estou tendo um problema com o metodo parseInt
+        try{
+            File p = new File("."+File.separator+"intervalo_de_salvamento.txt");
+            FileInputStream cano = new FileInputStream(p);
+            InputStreamReader filtro = new InputStreamReader(cano);
+            char[] umPeriodo = new char[100];
+            filtro.read(umPeriodo);
+            periodo = Integer.parseInt(new String(umPeriodo));
+        } catch(FileNotFoundException e){
+            System.out.println("O arquivo de tempo foi excluido!");
+        } catch(IOException e){
+                System.out.println(e.getMessage());
+        }*/
+        
+        Timer timer = new Timer();
+        timer.schedule(redesenhar, 0, periodo*1000);
     }
 }
